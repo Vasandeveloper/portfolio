@@ -69,7 +69,7 @@ function App() {
   ])
   
   const [resumeFile, setResumeFile] = useState(null)
-  const [resumeUrl, setResumeUrl] = useState(localStorage.getItem('resumeUrl') || null)
+  const [resumeUrl, setResumeUrl] = useState('/resume.pdf') // Default to public resume file
 
   // Admin authentication
   const handleAdminLogin = () => {
@@ -124,7 +124,7 @@ function App() {
     localStorage.setItem('portfolioSkills', JSON.stringify(updatedCategories))
   }
 
-  // Handle resume upload
+  // Handle resume upload (Note: In production, this would need a backend service)
   const handleResumeUpload = (event) => {
     const file = event.target.files[0]
     if (file && file.type === 'application/pdf') {
@@ -132,7 +132,7 @@ function App() {
       setResumeUrl(url)
       localStorage.setItem('resumeUrl', url)
       setResumeFile(file)
-      alert('✅ Resume uploaded successfully!')
+      alert('✅ Resume uploaded successfully! Note: This is only visible to you. To make it public for all visitors, replace the resume.pdf file in the public folder.')
     } else {
       alert('❌ Please upload a PDF file only.')
     }
@@ -142,12 +142,17 @@ function App() {
   useEffect(() => {
     const savedProjects = localStorage.getItem('portfolioProjects')
     const savedSkills = localStorage.getItem('portfolioSkills')
+    const savedResumeUrl = localStorage.getItem('resumeUrl')
     
     if (savedProjects) {
       setProjects(JSON.parse(savedProjects))
     }
     if (savedSkills) {
       setSkillCategories(JSON.parse(savedSkills))
+    }
+    // Use saved resume URL if available, otherwise keep the default public resume
+    if (savedResumeUrl) {
+      setResumeUrl(savedResumeUrl)
     }
   }, [])
 
@@ -326,7 +331,13 @@ function App() {
 
             {/* Resume Upload */}
             <div className="bg-dark-surface p-6 rounded-xl border border-neon-purple/20 md:col-span-2">
-              <h3 className="text-xl font-bold text-neon-blue mb-4">📄 Update Resume</h3>
+              <h3 className="text-xl font-bold text-neon-blue mb-4">📄 Resume Management</h3>
+              <div className="mb-3 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                <p className="text-yellow-300 text-sm">
+                  <strong>📌 Note:</strong> Resume uploaded here is only visible to you. For all visitors to see your resume, 
+                  replace the <code className="bg-black/30 px-1 rounded">resume.pdf</code> file in your project's public folder.
+                </p>
+              </div>
               <div className="flex items-center gap-4">
                 <input
                   type="file"
@@ -470,33 +481,33 @@ function App() {
             element.classList.add('section-visible')
             element.classList.remove('section-hidden')
             
-            // ULTRA-FAST staggered fade-in animations for child elements
+            // LIGHTNING-FAST staggered fade-in animations for child elements
             const animatedElements = element.querySelectorAll('.animate-on-scroll')
             animatedElements.forEach((el, index) => {
               // Reset any previous animations
               el.classList.remove('animate-in', 'animate-out')
               
-              // Add staggered fade-in with ultra-fast delays
+              // Add staggered fade-in with lightning-fast delays
               setTimeout(() => {
                 el.classList.add('animate-in')
-                el.style.transitionDelay = `${index * 0.01}s`
-              }, index * 5) // Ultra-fast base delay for staggering
+                el.style.transitionDelay = `${index * 0.002}s` // Reduced from 0.005s to 0.002s
+              }, index * 1) // Lightning-fast: reduced from 2ms to 1ms
             })
             
-            // Add text fade-in effects - ULTRA-FAST
+            // Add text fade-in effects - LIGHTNING-FAST
             const textElements = element.querySelectorAll('h1, h2, h3, p')
             textElements.forEach((textEl, index) => {
               setTimeout(() => {
                 textEl.classList.add('text-fade-in')
-              }, index * 10) // Reduced from 30ms to 10ms
+              }, index * 2) // Lightning-fast: reduced from 5ms to 2ms
             })
             
-            // Add button fade affects - ULTRA-FAST
+            // Add button fade affects - LIGHTNING-FAST
             const buttons = element.querySelectorAll('button, a')
             buttons.forEach((btn, index) => {
               setTimeout(() => {
                 btn.classList.add('button-fade-in')
-              }, 50 + (index * 15)) // Reduced from 200+40ms to 50+15ms
+              }, 10 + (index * 3)) // Lightning-fast: 10ms base + 3ms stagger (was 20ms + 8ms)
             })
             
           } else {
@@ -510,14 +521,14 @@ function App() {
               element.classList.add('section-hidden')
               element.classList.remove('section-visible')
               
-              // Fade out child elements - ULTRA-FAST
+              // Fade out child elements - LIGHTNING-FAST
               const animatedElements = element.querySelectorAll('.animate-on-scroll')
               animatedElements.forEach((el, index) => {
                 setTimeout(() => {
                   el.classList.add('animate-out')
                   el.classList.remove('animate-in')
-                  el.style.transitionDelay = `${index * 0.005}s`
-                }, index * 2) // Ultra-fast fade-out timing
+                  el.style.transitionDelay = `${index * 0.002}s` // Reduced from 0.005s to 0.002s
+                }, index * 1) // Lightning-fast fade-out timing: reduced from 2ms to 1ms
               })
               
               // Remove text animations
@@ -536,8 +547,8 @@ function App() {
         })
       },
       { 
-        threshold: [0.1, 0.2, 0.3, 0.5, 0.7, 0.9],
-        rootMargin: '0px 0px 0px 0px' // Immediate triggering for faster loading
+        threshold: [0.05, 0.15, 0.25],
+        rootMargin: '80px 0px 80px 0px' // Increased from 50px to 80px - start animations even earlier for faster perception
       }
     )
 
@@ -566,11 +577,11 @@ function App() {
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               backgroundColor: i % 3 === 0 ? '#00d4ff' : i % 3 === 1 ? '#8b5cf6' : '#00ff88',
-              animation: `float ${3 + Math.random() * 6}s ease-in-out infinite, contentFadeIn 2s ease-out ${Math.random() * 2}s forwards`,
-              animationDelay: `${Math.random() * 3}s`,
+              animation: `float ${3 + Math.random() * 6}s ease-in-out infinite, contentFadeIn 0.15s ease-out ${Math.random() * 0.1}s forwards`, // Much faster: 0.15s (was 0.4s) and reduced delay
+              animationDelay: `${Math.random() * 1}s`, // Reduced from 3s to 1s
               transform: `scale(${0.5 + Math.random() * 1.5})`,
               filter: 'blur(0.5px)',
-              transition: 'opacity 1.5s ease-in-out'
+              transition: 'opacity 0.3s ease-in-out' // Reduced from 0.8s to 0.3s
             }}
           />
         ))}
@@ -589,10 +600,10 @@ function App() {
                 i % 3 === 0 ? '#00d4ff' : i % 3 === 1 ? '#8b5cf6' : '#00ff88'
               }, transparent)`,
               borderRadius: i % 2 === 0 ? '50%' : '0%',
-              animation: `float ${8 + Math.random() * 4}s ease-in-out infinite reverse, contentFadeIn 2.5s ease-out ${Math.random() * 1.5}s forwards`,
-              animationDelay: `${Math.random() * 2}s`,
+              animation: `float ${8 + Math.random() * 4}s ease-in-out infinite reverse, contentFadeIn 0.2s ease-out ${Math.random() * 0.15}s forwards`, // Much faster: 0.2s (was 0.6s) and reduced delay
+              animationDelay: `${Math.random() * 0.8}s`, // Reduced from 2s to 0.8s
               transform: `rotate(${Math.random() * 360}deg)`,
-              transition: 'opacity 2s ease-in-out, filter 1s ease'
+              transition: 'opacity 0.25s ease-in-out, filter 0.15s ease' // Much faster transitions
             }}
           />
         ))}
@@ -612,9 +623,9 @@ function App() {
                 i === 1 ? 'rgba(139,92,246,0.05)' : 'rgba(0,255,136,0.05)'
               } 0%, transparent 70%)`,
               borderRadius: '50%',
-              animation: `parallaxFloat ${15 + Math.random() * 10}s ease-in-out infinite, contentFadeIn 3s ease-out ${i * 0.8}s forwards`,
+              animation: `parallaxFloat ${15 + Math.random() * 10}s ease-in-out infinite, contentFadeIn 0.25s ease-out ${i * 0.1}s forwards`, // Much faster: 0.25s (was 0.8s) and reduced delay
               filter: 'blur(1px)',
-              transition: 'opacity 2.5s ease-in-out'
+              transition: 'opacity 0.4s ease-in-out' // Reduced from 1s to 0.4s
             }}
           />
         ))}
@@ -710,19 +721,19 @@ function App() {
           .animate-on-scroll:nth-child(5) { transition-delay: 0.05s; }
           .animate-on-scroll:nth-child(6) { transition-delay: 0.06s; }
           
-          /* Optimized navigation fade effects */
+          /* Lightning-fast navigation fade effects */
           .scrolling-down nav {
             transform: translateX(-50%) translateY(-3px);
             box-shadow: 0 10px 25px rgba(0,212,255,0.15);
             backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
+            transition: all 0.15s ease; // Reduced from 0.3s to 0.15s
           }
           
           .scrolling-up nav {
             transform: translateX(-50%) translateY(3px);
             box-shadow: 0 5px 15px rgba(139,92,246,0.15);
             backdrop-filter: blur(15px);
-            transition: all 0.3s ease;
+            transition: all 0.15s ease; // Reduced from 0.3s to 0.15s
           }
           
           /* ULTRA-FAST keyframe animations */
@@ -802,7 +813,7 @@ function App() {
           /* Faster parallax elements */
           .parallax-element {
             animation: parallaxFloat 4s ease-in-out infinite;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.2s ease;
           }
           
           /* Optimized scroll-triggered particle fade effects */
@@ -814,7 +825,7 @@ function App() {
             right: 0;
             height: 100%;
             background: linear-gradient(180deg, transparent 0%, rgba(0,212,255,0.06) 50%, transparent 100%);
-            animation: quickParticleFadeDown 0.8s ease-out;
+            animation: quickParticleFadeDown 0.4s ease-out;
             opacity: 0;
           }
           
@@ -826,7 +837,7 @@ function App() {
             right: 0;
             height: 100%;
             background: linear-gradient(0deg, transparent 0%, rgba(139,92,246,0.06) 50%, transparent 100%);
-            animation: quickParticleFadeUp 0.8s ease-out;
+            animation: quickParticleFadeUp 0.4s ease-out;
             opacity: 0;
           }
           
@@ -869,9 +880,9 @@ function App() {
             filter: brightness(1.05);
           }
           
-          /* Faster glow effects with fade */
+          /* Lightning-fast glow effects with fade */
           .glow-element {
-            transition: all 0.4s ease;
+            transition: all 0.2s ease; // Reduced from 0.4s to 0.2s
           }
           
           .scrolling-down .glow-element {
@@ -968,7 +979,7 @@ function App() {
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
-              transition: 'all 0.3s ease',
+              transition: 'all 0.15s ease', // Reduced from 0.3s to 0.15s for faster navigation response
               transform: activeSection === item.id ? 'scale(1.05)' : 'scale(1)'
             }}
             onMouseEnter={(e) => {
@@ -1015,7 +1026,7 @@ function App() {
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
-            transition: 'all 0.3s ease'
+            transition: 'all 0.15s ease' // Reduced from 0.3s to 0.15s for faster admin button response
           }}
           onMouseEnter={(e) => {
             e.target.style.transform = 'scale(1.05)'
@@ -1048,7 +1059,7 @@ function App() {
             : scrollDirection === 'down' 
               ? 'translateY(50px) scale(0.95)' 
               : 'translateY(-50px) scale(0.95)',
-          transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)' // Reduced from 0.8s to 0.4s for faster hero section loading
         }}
       >
         <ParticleField />
@@ -1773,19 +1784,50 @@ function App() {
               }}>
                 <div style={{ fontSize: '4rem', marginBottom: '1rem', opacity: 0.5 }}>📄</div>
                 <h3 style={{
-                  color: '#888',
+                  color: '#00d4ff',
                   fontSize: '1.3rem',
                   fontWeight: '600',
                   marginBottom: '1rem'
                 }}>
-                  Resume Coming Soon
+                  Resume Available
                 </h3>
                 <p style={{
-                  color: '#666',
+                  color: '#cccccc',
                   fontSize: '1rem'
                 }}>
-                  My resume will be available for download shortly. Please check back soon!
+                  Click the button below to view and download my complete resume.
                 </p>
+                <div style={{ marginTop: '2rem' }}>
+                  <a
+                    href={resumeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      background: 'linear-gradient(135deg, #00d4ff, #8b5cf6)',
+                      color: 'white',
+                      padding: '1rem 2rem',
+                      borderRadius: '15px',
+                      textDecoration: 'none',
+                      fontWeight: '700',
+                      fontSize: '1rem',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.8rem',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'scale(1.05)'
+                      e.target.style.boxShadow = '0 15px 30px rgba(0,212,255,0.3)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'scale(1)'
+                      e.target.style.boxShadow = 'none'
+                    }}
+                  >
+                    <span style={{ fontSize: '1.2rem' }}>📥</span>
+                    View & Download Resume
+                  </a>
+                </div>
               </div>
             )}
 
@@ -1904,9 +1946,9 @@ function App() {
           }}
           className="animate-on-scroll">
             {[
-              { icon: '📧', label: 'Email', value: 'keerthivasangovindaraju@gmail.com', link: 'mailto:keerthivasangovindaraju@gmail.com' },
+              { icon: '📧', label: 'Email', value: 'keerthivasangc@gmail.com', link: 'mailto:keerthivasangc@gmail.com' },
               { icon: '📱', label: 'Phone', value: '+91 8610084011', link: 'tel:+918610084011' },
-              { icon: '🔗', label: 'LinkedIn', value: 'LinkedIn Profile', link: 'https://linkedin.com/in/keerthivasan-govindaraju-b82162295' },
+              { icon: '🔗', label: 'LinkedIn', value: 'LinkedIn Profile', link: 'https://www.linkedin.com/in/keerthivasan-govindaraju-364076319' },
               { icon: '💻', label: 'GitHub', value: 'GitHub Profile', link: 'https://github.com/Vasandeveloper' }
             ].map((contact, index) => (
               <a
@@ -1958,7 +2000,7 @@ function App() {
           }}
           className="animate-on-scroll">
             <button
-              onClick={() => window.open('mailto:keerthivasangovindaraju@gmail.com', '_blank')}
+              onClick={() => window.open('mailto:keerthivasangc@gmail.com', '_blank')}
               style={{
                 background: 'linear-gradient(135deg, #00d4ff, #8b5cf6)',
                 color: 'white',
@@ -2049,8 +2091,8 @@ function App() {
           flexWrap: 'wrap'
         }}>
           {[
-            { icon: '📧', link: 'mailto:keerthivasangovindaraju@gmail.com' },
-            { icon: '🔗', link: 'https://linkedin.com/in/keerthivasan-govindaraju-b82162295' },
+            { icon: '📧', link: 'mailto:keerthivasangc@gmail.com' },
+            { icon: '🔗', link: 'https://www.linkedin.com/in/keerthivasan-govindaraju-364076319' },
             { icon: '💻', link: 'https://github.com/Vasandeveloper' }
           ].map((social, index) => (
             <a
@@ -2061,7 +2103,7 @@ function App() {
               style={{
                 fontSize: '1.5rem',
                 color: '#888',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.15s ease', // Reduced from 0.3s to 0.15s for faster social icon hover
                 padding: '0.5rem'
               }}
               onMouseEnter={(e) => {
