@@ -1,75 +1,38 @@
-%PDF-1.4
-1 0 obj
-<<
-/Type /Catalog
-/Pages 2 0 R
->>
-endobj
-
-2 0 obj
-<<
-/Type /Pages
-/Kids [3 0 R]
-/Count 1
->>
-endobj
-
-3 0 obj
-<<
-/Type /Page
-/Parent 2 0 R
-/MediaBox [0 0 612 792]
-/Contents 4 0 R
-/Resources <<
-/ProcSet [/PDF /Text]
-/Font <<
-/F1 5 0 R
->>
->>
->>
-endobj
-
-4 0 obj
-<<
-/Length 200
->>
-stream
-BT
-/F1 24 Tf
-100 700 Td
-(Sharon Anto - Resume) Tj
-/F1 16 Tf
-0 -40 Td
-(ECE Student | Embedded & VLSI Enthusiast) Tj
-0 -30 Td
-(This is a placeholder resume file.) Tj
-0 -20 Td
-(Please replace this with your actual resume.) Tj
-ET
-endstream
-endobj
-
-5 0 obj
-<<
-/Type /Font
-/Subtype /Type1
-/BaseFont /Helvetica
->>
-endobj
-
-xref
-0 6
-0000000000 65535 f 
-0000000009 00000 n 
-0000000058 00000 n 
-0000000115 00000 n 
-0000000274 00000 n 
-0000000526 00000 n 
-trailer
-<<
-/Size 6
-/Root 1 0 R
->>
-startxref
-623
-%%EOF
+Keerthivasan Govindaraju 
+Tamil Nadu, India 
++91 8610084011 |       
+GitHub | LinkedIn 
+keerthivasangc@gmail.com 
+Education 
+B.Tech – Electronics and Communication Engineering 
+Vellore Institute of Technology, Chennai 
+• Grade: CGPA: 9.35 
+• Activities & Societies: Currently focused on academics and skill development; 
+planning to join relevant technical clubs in upcoming semesters 
+Skills 
+Hardware & Embedded: 
+• Verilog HDL, Digital Logic Design, Arduino & Sensors 
+• PCB Soldering, Microcontrollers, Embedded Systems 
+Software & Tools: 
+• VS Code, GitHub, MATLAB Simulations 
+• Circuit Debugging, IoT Systems 
+Programming Languages: 
+• Beginner: Java, Python 
+Projects 
+1. Emergency Braking System for Obstacle Detection 
+• Motor rotates continuously and stops when an object is detected using 
+ultrasonic sensor 
+• LED and buzzer alert when the object is near; resumes when clear 
+• Arduino-based implementation 
+2. Blind Man Glasses (Obstacle Detection Wearable) 
+• Glasses-mounted ultrasonic sensor with buzzer and vibration motor 
+• Alerts user about nearby obstacles in real-time 
+• Low-cost assistive tech for the visually impaired 
+3. Smart Radar-Based Obstacle Detector 
+• Servo-based sweeping sensor with ultrasonic range detection 
+• Buzzer and LED alert when an object is too close 
+• Processing IDE visualization for radar scan 
+Additional Information 
+• Enthusiastic about real-world embedded systems and semiconductor projects 
+• Actively building GitHub repositories with well-documented project files 
+• Quick learner with a focus on hands-on implementation and research 
