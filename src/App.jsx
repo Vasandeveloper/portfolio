@@ -69,7 +69,7 @@ function App() {
   ])
   
   const [resumeFile, setResumeFile] = useState(null)
-  const [resumeUrl, setResumeUrl] = useState('/resume.pdf') // Default to public resume file
+  const [resumeUrl, setResumeUrl] = useState('/resume%20(1).pdf') // Default to public resume file
 
   // Admin authentication
   const handleAdminLogin = () => {
@@ -335,7 +335,7 @@ function App() {
               <div className="mb-3 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
                 <p className="text-yellow-300 text-sm">
                   <strong>📌 Note:</strong> Resume uploaded here is only visible to you. For all visitors to see your resume, 
-                  replace the <code className="bg-black/30 px-1 rounded">resume.pdf</code> file in your project's public folder.
+                  replace the <code className="bg-black/30 px-1 rounded">resume (1).pdf</code> file in your project's public folder.
                 </p>
               </div>
               <div className="flex items-center gap-4">
