@@ -493,7 +493,7 @@ function App() {
   // Futuristic Navigation Component
   const FuturisticNav = () => {
     return (
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-accent/20">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-surface border-b border-accent/20">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo/Brand */}
@@ -518,7 +518,7 @@ function App() {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-300 ${
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-75 ${
                     activeSection === item.id
                       ? 'bg-primary/20 text-primary border border-primary/30'
                       : 'text-text-secondary hover:text-primary hover:bg-primary/10'
@@ -530,24 +530,16 @@ function App() {
               ))}
             </div>
 
-            {/* Theme Toggle & Admin */}
-            <div className="flex items-center space-x-4">
+            {/* Theme Toggle Only */}
+            <div className="flex items-center">
               <button
                 onClick={() => setIsDarkMode(!isDarkMode)}
-                className="p-3 rounded-xl bg-accent/50 hover:bg-accent transition-all duration-300 group"
+                className="p-3 rounded-xl bg-accent/50 hover:bg-accent transition-all duration-100"
                 title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               >
                 <span className="text-xl">
                   {isDarkMode ? '☀️' : '🌙'}
                 </span>
-              </button>
-              
-              <button
-                onClick={() => setShowAdmin(true)}
-                className="p-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-black hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 group"
-                title="Admin Panel"
-              >
-                <span className="text-xl">⚙️</span>
               </button>
             </div>
           </div>
@@ -1076,109 +1068,6 @@ function App() {
         `}
       </style>
       
-      {/* Floating Navigation */}
-      <nav style={{
-        position: 'fixed',
-        top: '20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 1000,
-        background: 'linear-gradient(145deg, rgba(26,26,26,0.95), rgba(15,15,15,0.95))',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(0,212,255,0.3)',
-        borderRadius: '50px',
-        padding: '1rem 2rem',
-        display: 'flex',
-        gap: '1.5rem',
-        animation: 'slideDown 0.8s ease-out'
-      }}>
-        {[
-          { id: 'hero', label: 'Home', icon: '🏠' },
-          { id: 'projects', label: 'Projects', icon: '🚀' },
-          { id: 'skills', label: 'Skills', icon: '🧠' },
-          { id: 'resume', label: 'Resume', icon: '📄' },
-          { id: 'contact', label: 'Contact', icon: '🌐' }
-        ].map((item) => (
-          <button
-            key={item.id}
-            onClick={() => scrollToSection(item.id)}
-            style={{
-              background: activeSection === item.id 
-                ? 'linear-gradient(135deg, #00d4ff, #8b5cf6)' 
-                : 'transparent',
-              color: activeSection === item.id ? 'white' : '#cccccc',
-              border: 'none',
-              padding: '0.8rem 1.5rem',
-              borderRadius: '25px',
-              cursor: 'pointer',
-              fontSize: '0.9rem',
-              fontWeight: '500',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              transition: 'all 0.15s ease', // Reduced from 0.3s to 0.15s for faster navigation response
-              transform: activeSection === item.id ? 'scale(1.05)' : 'scale(1)'
-            }}
-            onMouseEnter={(e) => {
-              if (activeSection !== item.id) {
-                e.target.style.background = 'rgba(0,212,255,0.2)'
-                e.target.style.color = '#00d4ff'
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (activeSection !== item.id) {
-                e.target.style.background = 'transparent'
-                e.target.style.color = '#cccccc'
-              }
-            }}
-          >
-            <span>{item.icon}</span>
-            {item.label}
-          </button>
-        ))}
-        
-        {/* Admin Login Button */}
-        <button
-          onClick={() => {
-            const password = prompt('🔐 Enter admin password:')
-            if (password) {
-              setAdminPassword(password)
-              if (password === 'keerthi2025admin') {
-                setIsAdmin(true)
-                setShowAdmin(true)
-              } else {
-                alert('❌ Invalid password! Access denied.')
-              }
-            }
-          }}
-          style={{
-            background: 'linear-gradient(135deg, #ff6b6b, #ff8e8e)',
-            color: 'white',
-            border: 'none',
-            padding: '0.8rem 1.5rem',
-            borderRadius: '25px',
-            cursor: 'pointer',
-            fontSize: '0.9rem',
-            fontWeight: '500',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            transition: 'all 0.15s ease' // Reduced from 0.3s to 0.15s for faster admin button response
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.transform = 'scale(1.05)'
-            e.target.style.boxShadow = '0 8px 20px rgba(255,107,107,0.3)'
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = 'scale(1)'
-            e.target.style.boxShadow = 'none'
-          }}
-        >
-          <span>🔐</span>
-          Admin
-        </button>
-      </nav>
-
       {/* Hero Section */}
       <section
         id="hero"
@@ -1196,7 +1085,7 @@ function App() {
             : scrollDirection === 'down' 
               ? 'translateY(50px) scale(0.95)' 
               : 'translateY(-50px) scale(0.95)',
-          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)' // Reduced from 0.8s to 0.4s for faster hero section loading
+          transition: 'all 0.05s cubic-bezier(0.4, 0, 0.2, 1)' // Ultra-fast for 120fps+ experience
         }}
       >
         <ParticleField />
@@ -1316,7 +1205,7 @@ function App() {
                 fontWeight: 'bold',
                 fontSize: '1.1rem',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.06s ease',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.8rem'
@@ -1345,11 +1234,10 @@ function App() {
                 fontWeight: 'bold',
                 fontSize: '1.1rem',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.06s ease',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.8rem',
-                backdropFilter: 'blur(10px)'
+                gap: '0.8rem'
               }}
               onMouseEnter={(e) => {
                 e.target.style.transform = 'translateY(-3px) scale(1.05)'
@@ -1385,7 +1273,7 @@ function App() {
             : scrollDirection === 'down' 
               ? 'translateY(50px) scale(0.95)' 
               : 'translateY(-50px) scale(0.95)',
-          transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+          transition: 'all 0.06s cubic-bezier(0.4, 0, 0.2, 1)'
         }}
       >
         <ParticleField />
@@ -1433,7 +1321,7 @@ function App() {
                   border: '1px solid rgba(255,255,255,0.1)',
                   maxWidth: '400px',
                   width: '100%',
-                  transition: 'all 0.5s ease',
+                  transition: 'all 0.08s ease',
                   animation: `slideInUp 0.8s ease-out ${index * 0.2}s both`,
                   cursor: 'pointer',
                   position: 'relative',
@@ -1571,7 +1459,7 @@ function App() {
                       fontWeight: '600',
                       fontSize: '0.9rem',
                       cursor: 'pointer',
-                      transition: 'all 0.3s ease',
+                      transition: 'all 0.06s ease',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.5rem',
