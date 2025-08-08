@@ -1,14 +1,844 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Keerthivasan Govindaraju - Portfolio</title>
-    <meta name="description" content="Keerthivasan Govindaraju - ECE Student | Embedded & VLSI Enthusiast" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keerthivasan - Futuristic Portfolio Test</title>
+    <style>
+        /* CSS Variables for Theme System */
+        :root {
+            /* Dark Theme (Default) */
+            --bg: #0a0a0a;
+            --surface: #1a1a1a;
+            --accent: #2a2a2a;
+            --primary: #00d4ff;
+            --secondary: #8b5cf6;
+            --tertiary: #00ff88;
+            --text: #ffffff;
+            --text-secondary: #b0b0b0;
+            --border: rgba(255, 255, 255, 0.1);
+            --glow: rgba(0, 212, 255, 0.5);
+        }
+
+        /* Light Theme - Clean White UI */
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --surface: #f8fafc;
+            --accent: #e2e8f0;
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --tertiary: #059669;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: rgba(0, 0, 0, 0.08);
+            --glow: rgba(37, 99, 235, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.1s ease, color 0.1s ease;
+            transform: translateZ(0);
+        }
+        
+        /* Ultra-Performance Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #2a2a2a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00d4ff, #8b5cf6);
+            border-radius: 3px;
+            transition: background 0.1s ease;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #8b5cf6, #00d4ff);
+        }
+        
+        /* Smooth scrolling optimization */
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: var(--surface);
+            border-bottom: 1px solid var(--accent);
+            padding: 1rem 2rem;
+            transition: background-color 0.1s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.05s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .theme-toggle {
+            padding: 12px;
+            border-radius: 50%;
+            border: 1px solid var(--accent);
+            background: var(--surface);
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.05s ease;
+            font-size: 18px;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: var(--accent);
+        }
+
+        .section {
+            padding: 120px 20px 100px;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero {
+            background: var(--bg);
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .projects {
+            background: var(--surface);
+        }
+        
+        .skills {
+            background: var(--bg);
+        }
+        
+        .contact {
+            background: var(--bg);
+        }
+        
+        .section-title {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00d4ff, #8b5cf6, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+        
+        .section-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .divider {
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff, #8b5cf6, #00ff88);
+            margin: 2rem auto;
+            border-radius: 2px;
+        }
+        
+        /* Ultra-Fast Performance Cards - No Blur */
+        .card {
+            background: linear-gradient(145deg, rgba(26,26,26,0.95), rgba(15,15,15,0.95));
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            margin-bottom: 2rem;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: rgba(0,212,255,0.8);
+            box-shadow: 0 8px 24px rgba(0,212,255,0.2);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+        
+        .tech-tag {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.25rem;
+            display: inline-block;
+        }
+        
+        .tech-tag.blue {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+        }
+        
+        .tech-tag.purple {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+        }
+        
+        /* Lightning-Fast Buttons */
+        .btn {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.06s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,212,255,0.3);
+        }
+        
+        .skill-bar {
+            background: rgba(255,255,255,0.1);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 0.8rem;
+        }
+        
+        .skill-fill {
+            background: linear-gradient(90deg, #00d4ff, #8b5cf6, #00ff88);
+            height: 100%;
+            border-radius: 5px;
+            transition: width 2s ease-out;
+        }
+        
+        .footer {
+            background: #0a0a0a;
+            padding: 60px 20px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(0,212,255,0.3);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link.github {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+        }
+        
+        .social-link.linkedin {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+        }
+        
+        .social-link.email {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <span class="logo-text">Keerthivasan</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link">🏠 Home</a></li>
+                <li><a href="#projects" class="nav-link">💼 Projects</a></li>
+                <li><a href="#skills" class="nav-link">💻 Skills</a></li>
+                <li><a href="#contact" class="nav-link">📧 Contact</a></li>
+            </ul>
+            
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero section" id="hero">
+        <div class="container">
+            <div class="section-icon">🚀</div>
+            <h1 class="section-title">Keerthivasan Govindaraju</h1>
+            <div class="divider"></div>
+            <p style="font-size: 1.5rem; color: #cccccc; margin-bottom: 2rem;">
+                🔮 ECE Student | Embedded Systems & VLSI Enthusiast
+            </p>
+            <p style="font-size: 1.2rem; color: #888; max-width: 800px; margin: 0 auto 3rem; line-height: 1.8;">
+                Building the future with cutting-edge embedded systems and innovative hardware solutions. 
+                Passionate about Arduino, microcontrollers, and next-generation electronics.
+            </p>
+            <a href="#contact" class="btn">
+                <span style="font-size: 1.3rem;">🌐</span>
+                Connect With Me
+            </a>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects section" id="projects">
+        <div class="container">
+            <div class="section-icon">🚀</div>
+            <h2 class="section-title">Innovation Showcase</h2>
+            <div class="divider"></div>
+            
+            <div class="project-grid">
+                <div class="card">
+                    <div style="position: absolute; top: 20px; right: 20px; font-size: 3rem; opacity: 0.7;">🚗</div>
+                    <h3 style="color: #ffffff; margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: bold;">
+                        Emergency Braking System (Arduino-based)
+                    </h3>
+                    <p style="color: #cccccc; margin-bottom: 2rem; line-height: 1.7; font-size: 1.1rem;">
+                        🚗 Real-time obstacle detection using ultrasonic sensor and Arduino UNO. Implements autonomous emergency braking via servo motor control system.
+                    </p>
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #8b5cf6; font-size: 1rem; margin-bottom: 1rem; font-weight: bold;">
+                            🛠️ Tech Stack:
+                        </h4>
+                        <span class="tech-tag">Arduino IDE</span>
+                        <span class="tech-tag">Ultrasonic Sensor</span>
+                        <span class="tech-tag">Servo Motor</span>
+                        <span class="tech-tag">L298N Motor Driver</span>
+                    </div>
+                    <a href="https://github.com/Vasandeveloper/emergency-braking-system" target="_blank" class="btn">
+                        <span style="font-size: 1.2rem;">💻</span>
+                        View Source Code
+                    </a>
+                </div>
+
+                <div class="card">
+                    <div style="position: absolute; top: 20px; right: 20px; font-size: 3rem; opacity: 0.7;">👓</div>
+                    <h3 style="color: #ffffff; margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: bold;">
+                        Blind Man Glasses – Assistive Wearable
+                    </h3>
+                    <p style="color: #cccccc; margin-bottom: 2rem; line-height: 1.7; font-size: 1.1rem;">
+                        👓 Revolutionary IR-based obstacle detection system with haptic feedback. Provides real-time vibration and audio alerts for enhanced mobility assistance.
+                    </p>
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #8b5cf6; font-size: 1rem; margin-bottom: 1rem; font-weight: bold;">
+                            🛠️ Tech Stack:
+                        </h4>
+                        <span class="tech-tag blue">IR Sensors</span>
+                        <span class="tech-tag blue">Buzzer</span>
+                        <span class="tech-tag blue">Vibrator Motor</span>
+                        <span class="tech-tag blue">Arduino</span>
+                    </div>
+                    <a href="https://github.com/Vasandeveloper/blind-man-glasses" target="_blank" class="btn blue">
+                        <span style="font-size: 1.2rem;">💻</span>
+                        View Source Code
+                    </a>
+                </div>
+
+                <div class="card">
+                    <div style="position: absolute; top: 20px; right: 20px; font-size: 3rem; opacity: 0.7;">📡</div>
+                    <h3 style="color: #ffffff; margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: bold;">
+                        Smart Radar-Based Parking & Obstacle Detection System
+                    </h3>
+                    <p style="color: #cccccc; margin-bottom: 2rem; line-height: 1.7; font-size: 1.1rem;">
+                        📡 Advanced radar scanning system using servo-controlled ultrasonic sensor. Features real-time visualization through Processing IDE interface.
+                    </p>
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #8b5cf6; font-size: 1rem; margin-bottom: 1rem; font-weight: bold;">
+                            🛠️ Tech Stack:
+                        </h4>
+                        <span class="tech-tag purple">Arduino</span>
+                        <span class="tech-tag purple">Servo Motor</span>
+                        <span class="tech-tag purple">Processing 4.3</span>
+                        <span class="tech-tag purple">Ultrasonic Sensor</span>
+                    </div>
+                    <a href="https://github.com/Vasandeveloper/smart-radar-obstacle-detector" target="_blank" class="btn purple" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+                        <span style="font-size: 1.2rem;">💻</span>
+                        View Source Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills section" id="skills">
+        <div class="container">
+            <div class="section-icon">🧠</div>
+            <h2 class="section-title">Neural Skills Matrix</h2>
+            <div class="divider"></div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                        <div style="font-size: 2.5rem; margin-right: 1rem;">⚡</div>
+                        <h3 style="color: #8b5cf6; font-size: 1.4rem; font-weight: bold;">
+                            🔧 Hardware & Embedded
+                        </h3>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="padding: 1rem; background: rgba(0,212,255,0.05); border-radius: 12px; border: 1px solid rgba(0,212,255,0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">🔌</span>
+                                    <span style="color: #ffffff; font-weight: 600;">Embedded Systems Basics</span>
+                                </div>
+                                <div style="color: #00d4ff; font-weight: bold;">85%</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="padding: 1rem; background: rgba(0,212,255,0.05); border-radius: 12px; border: 1px solid rgba(0,212,255,0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">📡</span>
+                                    <span style="color: #ffffff; font-weight: 600;">Arduino & Sensor Interfacing</span>
+                                </div>
+                                <div style="color: #00d4ff; font-weight: bold;">90%</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="padding: 1rem; background: rgba(0,212,255,0.05); border-radius: 12px; border: 1px solid rgba(0,212,255,0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">🔢</span>
+                                    <span style="color: #ffffff; font-weight: 600;">Digital Logic Design</span>
+                                </div>
+                                <div style="color: #00d4ff; font-weight: bold;">88%</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" style="width: 88%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="padding: 1rem; background: rgba(0,212,255,0.05); border-radius: 12px; border: 1px solid rgba(0,212,255,0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">🔍</span>
+                                    <span style="color: #ffffff; font-weight: 600;">Circuit Debugging</span>
+                                </div>
+                                <div style="color: #00d4ff; font-weight: bold;">82%</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" style="width: 82%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                        <div style="font-size: 2.5rem; margin-right: 1rem;">💾</div>
+                        <h3 style="color: #8b5cf6; font-size: 1.4rem; font-weight: bold;">
+                            💻 Software & Tools
+                        </h3>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="padding: 1rem; background: rgba(0,212,255,0.05); border-radius: 12px; border: 1px solid rgba(0,212,255,0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">📊</span>
+                                    <span style="color: #ffffff; font-weight: 600;">MATLAB (Simulation, Plotting)</span>
+                                </div>
+                                <div style="color: #00d4ff; font-weight: bold;">75%</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="padding: 1rem; background: rgba(0,212,255,0.05); border-radius: 12px; border: 1px solid rgba(0,212,255,0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">🔗</span>
+                                    <span style="color: #ffffff; font-weight: 600;">GitHub</span>
+                                </div>
+                                <div style="color: #00d4ff; font-weight: bold;">80%</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="padding: 1rem; background: rgba(0,212,255,0.05); border-radius: 12px; border: 1px solid rgba(0,212,255,0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">⚙️</span>
+                                    <span style="color: #ffffff; font-weight: 600;">VS Code</span>
+                                </div>
+                                <div style="color: #00d4ff; font-weight: bold;">92%</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" style="width: 92%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                        <div style="font-size: 2.5rem; margin-right: 1rem;">🚀</div>
+                        <h3 style="color: #8b5cf6; font-size: 1.4rem; font-weight: bold;">
+                            ⚙️ Core Tech
+                        </h3>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="padding: 1rem; background: rgba(0,212,255,0.05); border-radius: 12px; border: 1px solid rgba(0,212,255,0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">🔬</span>
+                                    <span style="color: #ffffff; font-weight: 600;">Basic VLSI (Verilog HDL – Beginner)</span>
+                                </div>
+                                <div style="color: #00d4ff; font-weight: bold;">65%</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" style="width: 65%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="padding: 1rem; background: rgba(0,212,255,0.05); border-radius: 12px; border: 1px solid rgba(0,212,255,0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">🛠️</span>
+                                    <span style="color: #ffffff; font-weight: 600;">PCB Soldering & Debugging</span>
+                                </div>
+                                <div style="color: #00d4ff; font-weight: bold;">85%</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="padding: 1rem; background: rgba(0,212,255,0.05); border-radius: 12px; border: 1px solid rgba(0,212,255,0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">🎛️</span>
+                                    <span style="color: #ffffff; font-weight: 600;">Microcontroller Programming (Arduino)</span>
+                                </div>
+                                <div style="color: #00d4ff; font-weight: bold;">88%</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" style="width: 88%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <div class="section-icon">🌐</div>
+            <h2 class="section-title">Initiate Connection</h2>
+            <div class="divider"></div>
+            <p style="color: #cccccc; font-size: 1.3rem; max-width: 800px; margin: 0 auto; line-height: 1.8; opacity: 0.9; text-align: center; margin-bottom: 4rem;">
+                🚀 Ready to collaborate on cutting-edge embedded systems projects? Let's build the future together!
+            </p>
+            
+            <div class="contact-grid">
+                <div class="card" onclick="window.location.href='mailto:keerthivasangc@gmail.com'" style="cursor: pointer; text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem;">📧</div>
+                    <h3 style="color: #ffffff; margin-bottom: 0.5rem; font-size: 1.4rem; font-weight: bold;">
+                        Neural Email
+                    </h3>
+                    <p style="color: #8b5cf6; margin-bottom: 1rem; font-size: 1rem; font-weight: 500;">
+                        Direct Communication Channel
+                    </p>
+                    <div style="background: linear-gradient(135deg, #00d4ff, #0099cc); color: white; padding: 1rem 1.5rem; border-radius: 12px; font-weight: bold; font-size: 1rem; margin-bottom: 1rem;">
+                        keerthivasangc@gmail.com
+                    </div>
+                </div>
+
+                <div class="card" onclick="window.location.href='tel:+918610084011'" style="cursor: pointer; text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem;">📱</div>
+                    <h3 style="color: #ffffff; margin-bottom: 0.5rem; font-size: 1.4rem; font-weight: bold;">
+                        Quantum Phone
+                    </h3>
+                    <p style="color: #8b5cf6; margin-bottom: 1rem; font-size: 1rem; font-weight: 500;">
+                        Instant Voice Connection
+                    </p>
+                    <div style="background: linear-gradient(135deg, #8b5cf6, #a855f7); color: white; padding: 1rem 1.5rem; border-radius: 12px; font-weight: bold; font-size: 1rem; margin-bottom: 1rem;">
+                        +91 8610084011
+                    </div>
+                </div>
+
+                <div class="card" onclick="window.open('https://linkedin.com/in/keerthivasan-govindaraju-b82162295', '_blank')" style="cursor: pointer; text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem;">💼</div>
+                    <h3 style="color: #ffffff; margin-bottom: 0.5rem; font-size: 1.4rem; font-weight: bold;">
+                        Professional Network
+                    </h3>
+                    <p style="color: #8b5cf6; margin-bottom: 1rem; font-size: 1rem; font-weight: 500;">
+                        LinkedIn Integration
+                    </p>
+                    <div style="background: linear-gradient(135deg, #00ff88, #00cc6a); color: white; padding: 1rem 1.5rem; border-radius: 12px; font-weight: bold; font-size: 1rem; margin-bottom: 1rem;">
+                        Connect & Collaborate
+                    </div>
+                </div>
+
+                <div class="card" onclick="window.open('https://github.com/Vasandeveloper', '_blank')" style="cursor: pointer; text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem;">💻</div>
+                    <h3 style="color: #ffffff; margin-bottom: 0.5rem; font-size: 1.4rem; font-weight: bold;">
+                        Code Repository
+                    </h3>
+                    <p style="color: #8b5cf6; margin-bottom: 1rem; font-size: 1rem; font-weight: 500;">
+                        GitHub Archives
+                    </p>
+                    <div style="background: linear-gradient(135deg, #ff6b6b, #ff8e8e); color: white; padding: 1rem 1.5rem; border-radius: 12px; font-weight: bold; font-size: 1rem; margin-bottom: 1rem;">
+                        View Projects
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; padding: 3rem; background: linear-gradient(145deg, rgba(0,212,255,0.1), rgba(139,92,246,0.1)); border-radius: 20px; border: 1px solid rgba(0,212,255,0.3); backdrop-filter: blur(20px);">
+                <h3 style="color: #ffffff; font-size: 1.8rem; margin-bottom: 1rem; font-weight: bold;">
+                    🎯 Ready for Next-Level Collaboration?
+                </h3>
+                <p style="color: #cccccc; font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px; margin: 0 auto 2rem auto;">
+                    Let's discuss embedded systems innovations, VLSI projects, or any tech challenges you're facing!
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+                    <a href="mailto:keerthivasangc@gmail.com" class="btn">
+                        <span style="font-size: 1.3rem;">🚀</span>
+                        Launch Email
+                    </a>
+                    <a href="https://linkedin.com/in/keerthivasan-govindaraju-b82162295" target="_blank" class="btn" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+                        <span style="font-size: 1.3rem;">🔗</span>
+                        Connect Network
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div style="position: relative; z-index: 1;">
+            <div style="font-size: 3rem; margin-bottom: 1.5rem;">⚡</div>
+            
+            <p style="color: #888; margin-bottom: 2rem; font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem auto;">
+                © 2025 <span style="color: #00d4ff; font-weight: bold;">Keerthivasan Govindaraju</span>
+                <br />
+                <span style="font-size: 0.9rem; opacity: 0.8;">
+                    🚀 Crafted with React & fueled by passion for embedded systems innovation
+                </span>
+            </p>
+            
+            <div class="social-links">
+                <a href="https://github.com/Vasandeveloper" target="_blank" class="social-link github">
+                    <span style="font-size: 1.2rem;">💻</span>
+                    GitHub
+                </a>
+                <a href="https://linkedin.com/in/keerthivasan-govindaraju-b82162295" target="_blank" class="social-link linkedin">
+                    <span style="font-size: 1.2rem;">💼</span>
+                    LinkedIn
+                </a>
+                <a href="mailto:keerthivasangc@gmail.com" class="social-link email">
+                    <span style="font-size: 1.2rem;">📧</span>
+                    Email
+                </a>
+            </div>
+            
+            <div style="padding: 1.5rem; background: linear-gradient(145deg, rgba(0,212,255,0.1), rgba(139,92,246,0.1)); border-radius: 15px; border: 1px solid rgba(0,212,255,0.2); max-width: 500px; margin: 0 auto; backdrop-filter: blur(10px);">
+                <p style="color: #cccccc; font-size: 0.9rem; margin: 0; line-height: 1.6;">
+                    🔮 <strong>Next-Gen Portfolio</strong> • Built with cutting-edge web technologies
+                    <br />
+                    <span style="color: #00d4ff;">React</span> •
+                    <span style="color: #8b5cf6;"> Vite</span> •
+                    <span style="color: #00ff88;"> Futuristic Design</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            const currentTheme = body.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                themeToggle.textContent = '☀️';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '🌙';
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Auto-detect system theme preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            document.body.setAttribute('data-theme', 'light');
+            document.querySelector('.theme-toggle').textContent = '☀️';
+        }
+
+        // Performance optimizations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add GPU acceleration to all interactive elements
+            const interactiveElements = document.querySelectorAll('.card, .btn, .social-link, .nav-link');
+            interactiveElements.forEach(el => {
+                el.style.transform = 'translateZ(0)';
+                el.style.willChange = 'transform';
+            });
+        });
+    </script>
+</body>
 </html>
