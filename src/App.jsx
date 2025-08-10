@@ -1,43 +1,6 @@
 import './App.css'
 import { useState, useEffect } from 'react'
 
-// Temporary: Using Unicode icons until react-icons is installed
-const Icons = {
-  // Navigation
-  Home: () => '🏠',
-  User: () => '👤', 
-  Code: () => '💻',
-  Briefcase: () => '💼',
-  Mail: () => '📧',
-  Download: () => '⬇️',
-  ExternalLink: () => '🔗',
-  Github: () => '⚡',
-  Sun: () => '☀️',
-  Moon: () => '🌙',
-  Settings: () => '⚙️',
-  Zap: () => '⚡',
-  
-  // Tech icons
-  Cpu: () => '🔧',
-  Monitor: () => '🖥️',
-  Server: () => '🗄️',
-  Database: () => '📊',
-  Terminal: () => '💻',
-  Layers: () => '📚',
-  Activity: () => '📈',
-  Upload: () => '⬆️',
-  Eye: () => '👁️',
-  Edit: () => '✏️',
-  Trash: () => '🗑️',
-  Plus: () => '➕',
-  X: () => '✖️',
-  
-  // Project icons
-  Circuit: () => '🔌',
-  Sparkles: () => '✨',
-  Rocket: () => '🚀'
-}
-
 function App() {
   const [activeSection, setActiveSection] = useState('hero')
   const [isVisible, setIsVisible] = useState({})
@@ -47,98 +10,60 @@ function App() {
   const [adminPassword, setAdminPassword] = useState('')
   const [showAdmin, setShowAdmin] = useState(false)
   
-  // Theme management with system preference detection
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check if user has a saved preference
-    const savedTheme = localStorage.getItem('theme')
-    if (savedTheme) {
-      return savedTheme === 'dark'
-    }
-    // Otherwise, use system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-  })
-
-  // Apply theme to document
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light')
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light')
-  }, [isDarkMode])
-
-  // Listen for system theme changes
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const handleChange = (e) => {
-      if (!localStorage.getItem('theme')) {
-        setIsDarkMode(e.matches)
-      }
-    }
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [])
-  
   const [projects, setProjects] = useState([
     {
       id: 1,
-      title: "🚗 Emergency Braking System",
-      description: "Real-time obstacle detection using ultrasonic sensor and Arduino UNO. Implements autonomous emergency braking via servo motor control system.",
-      tech: ["Arduino IDE", "Ultrasonic Sensor", "Servo Motor", "L298N Driver"],
+      title: "Emergency Braking System (Arduino-based)",
+      description: "🚗 Real-time obstacle detection using ultrasonic sensor and Arduino UNO. Implements autonomous emergency braking via servo motor control system.",
+      tech: ["Arduino IDE", "Ultrasonic Sensor", "Servo Motor", "L298N Motor Driver"],
       features: ["Real-time Detection", "Autonomous Braking", "Servo Control", "Safety System"],
       github: "https://github.com/Vasandeveloper/emergency-braking-system",
-      gradient: "linear-gradient(135deg, #ff6b6b, #ff8e8e)",
-      icon: "🚀",
-      category: "Embedded Systems"
+      gradient: "linear-gradient(135deg, #ff6b6b, #ff8e8e)"
     },
     {
       id: 2,
-      title: "👓 Blind Man Glasses – Assistive Wearable",
-      description: "Revolutionary IR-based obstacle detection system with haptic feedback. Provides real-time vibration and audio alerts for enhanced mobility assistance.",
+      title: "Blind Man Glasses – Assistive Wearable",
+      description: "👓 Revolutionary IR-based obstacle detection system with haptic feedback. Provides real-time vibration and audio alerts for enhanced mobility assistance.",
       tech: ["IR Sensors", "Buzzer", "Vibrator Motor", "Arduino"],
       features: ["Haptic Feedback", "Audio Alerts", "Wearable Design", "Mobility Assistance"],
       github: "https://github.com/Vasandeveloper/blind-man-glasses",
-      gradient: "linear-gradient(135deg, #00d4ff, #0099cc)",
-      icon: "✨",
-      category: "IoT & Sensors"
+      gradient: "linear-gradient(135deg, #00d4ff, #0099cc)"
     },
     {
       id: 3,
-      title: "📡 Smart Radar Detection System",
-      description: "Advanced radar scanning system using servo-controlled ultrasonic sensor. Features real-time visualization through Processing IDE interface.",
+      title: "Smart Radar-Based Parking & Obstacle Detection System",
+      description: "📡 Advanced radar scanning system using servo-controlled ultrasonic sensor. Features real-time visualization through Processing IDE interface.",
       tech: ["Arduino", "Servo Motor", "Processing 4.3", "Ultrasonic Sensor"],
       features: ["Radar Scanning", "Real-time Visualization", "Servo Control", "Processing Interface"],
       github: "https://github.com/Vasandeveloper/smart-radar-obstacle-detector",
-      gradient: "linear-gradient(135deg, #8b5cf6, #a855f7)",
-      icon: "🔌",
-      category: "Signal Processing"
+      gradient: "linear-gradient(135deg, #8b5cf6, #a855f7)"
     }
   ])
   
   const [skillCategories, setSkillCategories] = useState([
     {
       category: "🔧 Hardware & Embedded",
-      icon: "🔧",
       skills: [
-        { id: 1, name: "Embedded Systems Basics", level: 85, icon: "🔌", color: "#00d4ff" },
-        { id: 2, name: "Arduino & Sensor Interfacing", level: 90, icon: "📡", color: "#00ff88" },
-        { id: 3, name: "Digital Logic Design", level: 88, icon: "🔢", color: "#8b5cf6" },
-        { id: 4, name: "Circuit Debugging", level: 82, icon: "🔍", color: "#ff6b6b" }
+        { id: 1, name: "Embedded Systems Basics", level: 85, icon: "🔌" },
+        { id: 2, name: "Arduino & Sensor Interfacing", level: 90, icon: "📡" },
+        { id: 3, name: "Digital Logic Design", level: 88, icon: "🔢" },
+        { id: 4, name: "Circuit Debugging", level: 82, icon: "🔍" }
       ]
     },
     {
       category: "💻 Software & Tools",
-      icon: "💻",
       skills: [
-        { id: 5, name: "MATLAB (Simulation, Plotting)", level: 75, icon: "📊", color: "#ff8500" },
-        { id: 6, name: "GitHub", level: 80, icon: "🔗", color: "#00d4ff" },
-        { id: 7, name: "VS Code", level: 92, icon: "⚙️", color: "#007acc" }
+        { id: 5, name: "MATLAB (Simulation, Plotting)", level: 75, icon: "📊" },
+        { id: 6, name: "GitHub", level: 80, icon: "🔗" },
+        { id: 7, name: "VS Code", level: 92, icon: "⚙️" }
       ]
     },
     {
       category: "⚙️ Core Tech",
-      icon: "⚙️",
       skills: [
-        { id: 8, name: "Basic VLSI (Verilog HDL – Beginner)", level: 65, icon: "🔬", color: "#8b5cf6" },
-        { id: 9, name: "PCB Soldering & Debugging", level: 85, icon: "🛠️", color: "#00ff88" },
-        { id: 10, name: "Microcontroller Programming", level: 88, icon: "🎛️", color: "#00d4ff" }
+        { id: 8, name: "Basic VLSI (Verilog HDL – Beginner)", level: 65, icon: "🔬" },
+        { id: 9, name: "PCB Soldering & Debugging", level: 85, icon: "🛠️" },
+        { id: 10, name: "Microcontroller Programming (Arduino)", level: 88, icon: "🎛️" }
       ]
     }
   ])
@@ -490,63 +415,7 @@ function App() {
     )
   }
 
-  // Futuristic Navigation Component
-  const FuturisticNav = () => {
-    return (
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-surface border-b border-accent/20">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo/Brand */}
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                <span className="text-black text-xl">⚡</span>
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Sharon Anto
-              </span>
-            </div>
-
-            {/* Navigation Links */}
-            <div className="hidden md:flex items-center space-x-8">
-              {[
-                { id: 'hero', label: 'Home', icon: '🏠' },
-                { id: 'projects', label: 'Projects', icon: '💼' },
-                { id: 'skills', label: 'Skills', icon: '💻' },
-                { id: 'resume', label: 'Resume', icon: '👤' },
-                { id: 'contact', label: 'Contact', icon: '📧' }
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-75 ${
-                    activeSection === item.id
-                      ? 'bg-primary/20 text-primary border border-primary/30'
-                      : 'text-text-secondary hover:text-primary hover:bg-primary/10'
-                  }`}
-                >
-                  <span>{item.icon}</span>
-                  <span className="font-medium">{item.label}</span>
-                </button>
-              ))}
-            </div>
-
-            {/* Theme Toggle Only */}
-            <div className="flex items-center">
-              <button
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                className="p-3 rounded-xl bg-accent/50 hover:bg-accent transition-all duration-100"
-                title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-              >
-                <span className="text-xl">
-                  {isDarkMode ? '☀️' : '🌙'}
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-    )
-  }
+  // Enhanced scroll tracking with throttling and smooth animations
   useEffect(() => {
     let ticking = false
     let scrollSpeed = 0
@@ -765,10 +634,12 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-bg text-text font-system transition-colors duration-300">
-      
-      {/* Futuristic Navigation */}
-      <FuturisticNav />
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
+      color: 'white',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif'
+    }}>
       
       {/* Enhanced Scroll Animation Styles - Optimized for Speed */}
       <style>
@@ -1068,6 +939,109 @@ function App() {
         `}
       </style>
       
+      {/* Floating Navigation */}
+      <nav style={{
+        position: 'fixed',
+        top: '20px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 1000,
+        background: 'linear-gradient(145deg, rgba(26,26,26,0.95), rgba(15,15,15,0.95))',
+        backdropFilter: 'blur(20px)',
+        border: '1px solid rgba(0,212,255,0.3)',
+        borderRadius: '50px',
+        padding: '1rem 2rem',
+        display: 'flex',
+        gap: '1.5rem',
+        animation: 'slideDown 0.8s ease-out'
+      }}>
+        {[
+          { id: 'hero', label: 'Home', icon: '🏠' },
+          { id: 'projects', label: 'Projects', icon: '🚀' },
+          { id: 'skills', label: 'Skills', icon: '🧠' },
+          { id: 'resume', label: 'Resume', icon: '📄' },
+          { id: 'contact', label: 'Contact', icon: '🌐' }
+        ].map((item) => (
+          <button
+            key={item.id}
+            onClick={() => scrollToSection(item.id)}
+            style={{
+              background: activeSection === item.id 
+                ? 'linear-gradient(135deg, #00d4ff, #8b5cf6)' 
+                : 'transparent',
+              color: activeSection === item.id ? 'white' : '#cccccc',
+              border: 'none',
+              padding: '0.8rem 1.5rem',
+              borderRadius: '25px',
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              fontWeight: '500',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              transition: 'all 0.15s ease', // Reduced from 0.3s to 0.15s for faster navigation response
+              transform: activeSection === item.id ? 'scale(1.05)' : 'scale(1)'
+            }}
+            onMouseEnter={(e) => {
+              if (activeSection !== item.id) {
+                e.target.style.background = 'rgba(0,212,255,0.2)'
+                e.target.style.color = '#00d4ff'
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (activeSection !== item.id) {
+                e.target.style.background = 'transparent'
+                e.target.style.color = '#cccccc'
+              }
+            }}
+          >
+            <span>{item.icon}</span>
+            {item.label}
+          </button>
+        ))}
+        
+        {/* Admin Login Button */}
+        <button
+          onClick={() => {
+            const password = prompt('🔐 Enter admin password:')
+            if (password) {
+              setAdminPassword(password)
+              if (password === 'keerthi2025admin') {
+                setIsAdmin(true)
+                setShowAdmin(true)
+              } else {
+                alert('❌ Invalid password! Access denied.')
+              }
+            }
+          }}
+          style={{
+            background: 'linear-gradient(135deg, #ff6b6b, #ff8e8e)',
+            color: 'white',
+            border: 'none',
+            padding: '0.8rem 1.5rem',
+            borderRadius: '25px',
+            cursor: 'pointer',
+            fontSize: '0.9rem',
+            fontWeight: '500',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            transition: 'all 0.15s ease' // Reduced from 0.3s to 0.15s for faster admin button response
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.transform = 'scale(1.05)'
+            e.target.style.boxShadow = '0 8px 20px rgba(255,107,107,0.3)'
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = 'scale(1)'
+            e.target.style.boxShadow = 'none'
+          }}
+        >
+          <span>🔐</span>
+          Admin
+        </button>
+      </nav>
+
       {/* Hero Section */}
       <section
         id="hero"
@@ -1085,7 +1059,7 @@ function App() {
             : scrollDirection === 'down' 
               ? 'translateY(50px) scale(0.95)' 
               : 'translateY(-50px) scale(0.95)',
-          transition: 'all 0.05s cubic-bezier(0.4, 0, 0.2, 1)' // Ultra-fast for 120fps+ experience
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)' // Reduced from 0.8s to 0.4s for faster hero section loading
         }}
       >
         <ParticleField />
@@ -1205,7 +1179,7 @@ function App() {
                 fontWeight: 'bold',
                 fontSize: '1.1rem',
                 cursor: 'pointer',
-                transition: 'all 0.06s ease',
+                transition: 'all 0.3s ease',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.8rem'
@@ -1234,10 +1208,11 @@ function App() {
                 fontWeight: 'bold',
                 fontSize: '1.1rem',
                 cursor: 'pointer',
-                transition: 'all 0.06s ease',
+                transition: 'all 0.3s ease',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.8rem'
+                gap: '0.8rem',
+                backdropFilter: 'blur(10px)'
               }}
               onMouseEnter={(e) => {
                 e.target.style.transform = 'translateY(-3px) scale(1.05)'
@@ -1273,7 +1248,7 @@ function App() {
             : scrollDirection === 'down' 
               ? 'translateY(50px) scale(0.95)' 
               : 'translateY(-50px) scale(0.95)',
-          transition: 'all 0.06s cubic-bezier(0.4, 0, 0.2, 1)'
+          transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
         }}
       >
         <ParticleField />
@@ -1321,7 +1296,7 @@ function App() {
                   border: '1px solid rgba(255,255,255,0.1)',
                   maxWidth: '400px',
                   width: '100%',
-                  transition: 'all 0.08s ease',
+                  transition: 'all 0.5s ease',
                   animation: `slideInUp 0.8s ease-out ${index * 0.2}s both`,
                   cursor: 'pointer',
                   position: 'relative',
@@ -1459,7 +1434,7 @@ function App() {
                       fontWeight: '600',
                       fontSize: '0.9rem',
                       cursor: 'pointer',
-                      transition: 'all 0.06s ease',
+                      transition: 'all 0.3s ease',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.5rem',
